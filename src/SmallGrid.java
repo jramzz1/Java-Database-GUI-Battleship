@@ -12,8 +12,8 @@ public class SmallGrid extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Object[][] array;
 	private BufferedImage gridImage;
-	public static final int X_ORIGIN = 23; // X coordinate of the top left
-	public static final int Y_ORIGIN = 39; // y coordinate of the top left
+	public static final int X_ORIGIN = 28; // X coordinate of the top left
+	public static final int Y_ORIGIN = 35; // y coordinate of the top left
 	public static final int TILE_SIZE = 20; // size of the tile spaces
 	public static final int BORDER_SIZE = 3; // size of the border between tiles
 	public static final int PIECE_SIZE = 18; // size of the pieces that appear
@@ -43,7 +43,7 @@ public class SmallGrid extends JPanel {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		// draws the grid image
-		g2.drawImage(gridImage, 0, 15, this);
+		g2.drawImage(gridImage, 8, 15, this);
 
 		// loops through the array
 		for (int i = 0; i < array.length; i++) {
@@ -53,8 +53,8 @@ public class SmallGrid extends JPanel {
 					// draw the image of the ship piece at the proper grid
 					// location
 					g2.drawImage(((ShipPiece) array[i][j]).getShipImage(), 
-							X_ORIGIN + 2 + ((TILE_SIZE + BORDER_SIZE) * i) + BORDER_SIZE/2,
-							Y_ORIGIN + 2 + ((TILE_SIZE + BORDER_SIZE) * j) + BORDER_SIZE/2,
+							X_ORIGIN + 4 + ((TILE_SIZE + BORDER_SIZE) * i) + BORDER_SIZE/2,
+							Y_ORIGIN + 4 + ((TILE_SIZE + BORDER_SIZE) * j) + BORDER_SIZE/2,
 							PIECE_SIZE, PIECE_SIZE, this);
 				}
 			}

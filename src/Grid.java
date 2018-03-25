@@ -15,8 +15,8 @@ public class Grid extends JPanel implements MouseListener {
 	private static final long serialVersionUID = 1L;
 	private BufferedImage gridImage;
 	private Object[][] array;
-	public static final int X_ORIGIN = 54; // X coordinate of the top left
-	public static final int Y_ORIGIN = 56; // Y coordinate of the top left
+	public static final int X_ORIGIN = 52; // X coordinate of the top left
+	public static final int Y_ORIGIN = 53; // Y coordinate of the top left
 	public static final int TILE_SIZE = 47; // Size of the tile spaces
 	public static final int BORDER_SIZE = 5; // size of the border between spaces
 	private volatile boolean isTurn;
@@ -44,8 +44,8 @@ public class Grid extends JPanel implements MouseListener {
 		isTurn = true;
 		state = false;
 		// makes the background white and sets the size
-		setBackground(Color.white);
-		setPreferredSize(new Dimension((X_ORIGIN+ arr.length + 1 + ((TILE_SIZE+BORDER_SIZE)*array.length)), 
+		setBackground(new Color(30,55,65));
+		setPreferredSize(new Dimension((X_ORIGIN + arr.length + 1 + ((TILE_SIZE+BORDER_SIZE)*array.length)), 
 				Y_ORIGIN+ arr.length + 1 + ((TILE_SIZE+BORDER_SIZE)*array.length)));
 		setSize(getPreferredSize());
 		setLocation(0,0);
@@ -72,16 +72,16 @@ public class Grid extends JPanel implements MouseListener {
 				if (array[i][j].equals((Object) 1) || ((array[i][j]).getClass().getName().equals("ShipPiece")
 						&& !((ShipPiece) array[i][j]).isDestroy())) {
 					// covers the spot on the grid with a gray box
-					g2.setColor(Color.gray);
-					g2.fillRect(X_ORIGIN + i + 1 + ((TILE_SIZE + BORDER_SIZE) * i), Y_ORIGIN + j + 1 + ((TILE_SIZE + BORDER_SIZE) * j),
+					g2.setColor(new Color(43,67,76));
+					g2.fillRect(X_ORIGIN + i + 3 + ((TILE_SIZE + BORDER_SIZE) * i), Y_ORIGIN + j + 3 + ((TILE_SIZE + BORDER_SIZE) * j),
 							TILE_SIZE+(BORDER_SIZE/2)-1, TILE_SIZE+(BORDER_SIZE/2)-1);
 					// if there is a ship piece at the position that is
 					// destroyed
 				} else if ((array[i][j]).getClass().getName().equals("ShipPiece")) {
 					// draw the image associated with the ship piece
 					g2.drawImage(((ShipPiece) array[i][j]).getShipImage(),
-							X_ORIGIN + i + ((TILE_SIZE + BORDER_SIZE) * i) + BORDER_SIZE/2,
-							Y_ORIGIN + j + ((TILE_SIZE + BORDER_SIZE) * j) + BORDER_SIZE/2, this);
+							X_ORIGIN + i + ((TILE_SIZE + BORDER_SIZE) * i) + BORDER_SIZE/2 - 1,
+							Y_ORIGIN + j + ((TILE_SIZE + BORDER_SIZE) * j) + BORDER_SIZE/2 - 1, this);
 				}
 			}
 		}
@@ -130,7 +130,7 @@ public class Grid extends JPanel implements MouseListener {
 						((ShipPiece) array[counter1][counter2]).destroy();
 						repaint();
 						// end the turn
-						isTurn = false;
+						isTurn = true;
 					}
 					state = false;
 				}

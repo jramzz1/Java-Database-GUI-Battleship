@@ -25,7 +25,7 @@ public class GameLogic {
 		frame = new JFrame();
 		
 		frame.getContentPane().setLayout(null);
-		frame.getContentPane().setBackground(Color.WHITE);
+		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setPreferredSize(new Dimension(900, 615));
 		frame.setMinimumSize(new Dimension(900, 615));

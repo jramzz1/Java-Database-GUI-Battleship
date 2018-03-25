@@ -47,7 +47,7 @@ public class GridCreator extends JPanel {
 
 	public GridCreator(Ship[] shipArray, int gridSize, String path, JFrame app) {
 		setLayout(null);
-		setBackground(Color.white);
+		setBackground(new Color(30,55,65));
 		setLocation(0,0);
 		window = app;
 
@@ -95,8 +95,8 @@ public class GridCreator extends JPanel {
 
 		// creates a label with the grid image and adds it to the screen
 		JLabel gridLabel = new JLabel(new ImageIcon(gridImage));
-		gridLabel.setSize(X_ORIGIN + gridArray.length + 1 + ((TILE_SIZE + BORDER_SIZE) * gridArray.length),
-				Y_ORIGIN + gridArray.length + 1 + ((TILE_SIZE + BORDER_SIZE) * (gridArray.length)));
+		gridLabel.setSize(X_ORIGIN + gridArray.length - 1 + ((TILE_SIZE + BORDER_SIZE) * gridArray.length),
+				Y_ORIGIN + gridArray.length - 2 + ((TILE_SIZE + BORDER_SIZE) * (gridArray.length)));
 		gridLabel.setLocation(0, 0);
 		gridLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		gridLabel.setVerticalAlignment(SwingConstants.TOP);
@@ -135,7 +135,7 @@ public class GridCreator extends JPanel {
 
 		// creates a button that ends setup when pressed
 		endSetup = new JButton("Finish");
-		endSetup.setBounds(buttonXPos, TILE_SIZE - 5, window.getWidth() - buttonXPos, window.getHeight());
+		endSetup.setBounds(buttonXPos, 45, window.getWidth() - buttonXPos, TILE_SIZE - 5);
 		endSetup.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
