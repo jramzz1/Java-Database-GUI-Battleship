@@ -25,7 +25,7 @@ public class SmallGrid extends JPanel {
 		this.array = array;
 		
 		// sets the background to white
-		setBackground(Color.WHITE);
+		setBackground(new Color(30,55,65));
 		setPreferredSize(new Dimension((X_ORIGIN + 2 + (TILE_SIZE+BORDER_SIZE)*array.length), 
 				Y_ORIGIN+ 2 + ((TILE_SIZE+BORDER_SIZE)*array.length)));
 		setSize(getPreferredSize());

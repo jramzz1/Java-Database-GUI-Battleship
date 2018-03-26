@@ -124,7 +124,7 @@ public class GameLogic {
 					grid.setVisible(false);
 					small.setVisible(false);
 					grid.setArray(grid2Temp);
-					small.setArray(grid1Temp); 
+					small.setArray(grid1Temp);
 					betweenTurns.loadTurnScreen();
 				}
 			}
