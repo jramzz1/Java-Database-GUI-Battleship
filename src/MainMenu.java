@@ -54,7 +54,7 @@ public class MainMenu {
 	public void loadTitleScreen() {
 		bkgImageContainer.setSize(window.getContentPane().getWidth(),
 				window.getContentPane().getHeight()/2);
-		bkgImageContainer.setLocation(0, 0); 
+		bkgImageContainer.setLocation(0, 50); 
 		bkgImageContainer.setVisible(true);
 		
 		errorMessage = new JLabel("Error: grid is too small to fit the selected ships");
@@ -67,7 +67,7 @@ public class MainMenu {
 		
 		startGame = new JButton("Start Game");
 		startGame.setSize(200, 100);
-		startGame.setLocation(150, bkgImageContainer.getHeight() + 50);
+		startGame.setLocation(150, bkgImageContainer.getHeight() + 50);//- 355);
 		startGame.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
