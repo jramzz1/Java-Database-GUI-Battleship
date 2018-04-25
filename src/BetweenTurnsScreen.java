@@ -24,8 +24,7 @@ public class BetweenTurnsScreen implements MouseListener {
 				window.getHeight(), BufferedImage.SCALE_FAST);
 		ImageIcon scaledBkgImageIcon = new ImageIcon(scaledBkgImage);
 		bkgImageContainer = new JLabel(scaledBkgImageIcon);
-		bkgImageContainer.setSize(window.getWidth(), 
-				window.getHeight());
+		bkgImageContainer.setSize(window.getWidth(), window.getHeight());
 		bkgImageContainer.setLocation(0, 0); 
 		isImageVisible = true;
 		this.grid = grid;

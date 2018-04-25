@@ -40,6 +40,7 @@ public class GameOverScreen implements MouseListener{
 		window.setVisible(true);
 		window.revalidate();
 		window.repaint();
+		//new GameLogic().setUpWindow();
 	}
 
 	@Override

@@ -6,9 +6,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
-public class MainMenu {
+public class MainMenu{
 	
+	private JTextField usr1, usr2, pswd1, pswd2;
+	private JLabel user1, user2,pass1,pass2;
 	private JFrame window;
 	private ImageIcon backgroundImageIcon;
 	private JLabel bkgImageContainer;
@@ -57,6 +60,46 @@ public class MainMenu {
 		bkgImageContainer.setLocation(0, 50); 
 		bkgImageContainer.setVisible(true);
 		
+		user1 = new JLabel("Player 1: Username");
+		user1.setSize(150,30);
+		user1.setLocation(222,290);
+		user1.setForeground(Color.white);
+		window.add(user1);
+		usr1 = new JTextField();
+		usr1.setSize(200,40);
+		usr1.setLocation(220,315);
+		window.add(usr1);
+		
+		pass1 = new JLabel("Player1: Password");
+		pass1.setSize(150,30);
+		pass1.setLocation(222, 350);
+		pass1.setForeground(Color.white);
+		window.add(pass1);
+		pswd1 = new JTextField();
+		pswd1.setSize(200,40);
+		pswd1.setLocation(222,375);
+		window.add(pswd1);
+		
+		user2 = new JLabel("Player 2: Username");
+		user2.setSize(150,30);
+		user2.setLocation(482,290);
+		user2.setForeground(Color.white);
+		window.add(user2);
+		usr2 = new JTextField();
+		usr2.setSize(200,40);
+		usr2.setLocation(480,315);
+		window.add(usr2);
+		
+		pass2 = new JLabel("Player2: Password");
+		pass2.setSize(150,30);
+		pass2.setLocation(482, 350);
+		pass2.setForeground(Color.white);
+		window.add(pass2);
+		pswd2 = new JTextField();
+		pswd2.setSize(200,40);
+		pswd2.setLocation(480,375);
+		window.add(pswd2);
+		
 //		errorMessage = new JLabel("Error: grid is too small to fit the selected ships");
 //		errorMessage.setForeground(Color.RED);
 //		errorMessage.setFont(new Font("Impact", Font.PLAIN, 24));
@@ -66,13 +109,21 @@ public class MainMenu {
 //		errorMessage.setVisible(false);
 		
 		startGame = new JButton("Start Game");
-		startGame.setSize(200, 100);
-		startGame.setLocation(360, bkgImageContainer.getHeight() + 50);// 150);
+		startGame.setSize(200, 80);
+		startGame.setLocation(355, bkgImageContainer.getHeight() + 150);// 150);
 		startGame.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				window.getContentPane().remove(startGame);
 				window.getContentPane().remove(bkgImageContainer);
+				window.getContentPane().remove(user1);
+				window.getContentPane().remove(usr1);
+				window.getContentPane().remove(user2);
+				window.getContentPane().remove(usr2);
+				window.getContentPane().remove(pass1);
+				window.getContentPane().remove(pswd1);
+				window.getContentPane().remove(pass2);
+				window.getContentPane().remove(pswd2);
 //				window.getContentPane().remove(gridSizeBtn);
 //				window.getContentPane().remove(battleshipSize);
 //				window.getContentPane().remove(cruiserSize);
