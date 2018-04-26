@@ -17,6 +17,7 @@ public class MainMenu{
 	private JLabel bkgImageContainer;
 //	private JButton gridSizeBtn;
 	private JButton startGame;
+	private JButton scores;
 //	private JButton battleshipSize, cruiserSize, destroyerSize, submarineSize;
 //	private JButton battleshipCount, cruiserCount, destroyerCount, submarineCount;
 //	private JLabel errorMessage;
@@ -107,6 +108,41 @@ public class MainMenu{
 //		errorMessage.setLocation(window.getWidth()/2 - errorMessage.getWidth()/2,
 //				window.getHeight()-errorMessage.getHeight() - 30);
 //		errorMessage.setVisible(false);
+		
+		scores = new JButton("Scores");
+		scores.setSize(100, 40);
+		scores.setLocation(750, bkgImageContainer.getHeight() + 220);// 150);
+		scores.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+//				window.getContentPane().remove(startGame);
+//				window.getContentPane().remove(scores);
+//				window.getContentPane().remove(bkgImageContainer);
+//				window.getContentPane().remove(user1);
+//				window.getContentPane().remove(usr1);
+//				window.getContentPane().remove(user2);
+//				window.getContentPane().remove(usr2);
+//				window.getContentPane().remove(pass1);
+//				window.getContentPane().remove(pswd1);
+//				window.getContentPane().remove(pass2);
+//				window.getContentPane().remove(pswd2);
+				
+				
+//				window.getContentPane().remove(gridSizeBtn);
+//				window.getContentPane().remove(battleshipSize);
+//				window.getContentPane().remove(cruiserSize);
+//				window.getContentPane().remove(destroyerSize);
+//				window.getContentPane().remove(submarineSize);
+//				window.getContentPane().remove(battleshipCount);
+//				window.getContentPane().remove(cruiserCount);
+//				window.getContentPane().remove(destroyerCount);
+//				window.getContentPane().remove(submarineCount);
+//				window.getContentPane().revalidate();
+//				window.getContentPane().repaint();
+//				window.getContentPane().setBackground(new Color(30,55,65));
+//				isImageVisible = false;
+			}	
+		});
 		
 		startGame = new JButton("Start Game");
 		startGame.setSize(200, 80);
@@ -325,6 +361,7 @@ public class MainMenu{
 //		});
 		
 		startGame.setVisible(true);
+		scores.setVisible(true);
 //		gridSizeBtn.setVisible(true);
 //		battleshipSize.setVisible(true);
 //		cruiserSize.setVisible(true);
@@ -337,6 +374,7 @@ public class MainMenu{
 		
 //		window.getContentPane().add(errorMessage);
 		window.getContentPane().add(startGame);
+		window.getContentPane().add(scores);
 		window.getContentPane().add(bkgImageContainer);
 //		window.getContentPane().add(gridSizeBtn);
 //		window.getContentPane().add(battleshipSize);
