@@ -45,8 +45,8 @@ public class GameLogic {
 		Ship[] p1Ships = initializeShipCreation(true);
 		Ship[] p2Ships = initializeShipCreation(false);
 		
-		Grid grid = new Grid(chooseShipPositions(p1Ships,0));
-		SmallGrid small = new SmallGrid(chooseShipPositions(p2Ships,1));
+		Grid grid = new Grid(chooseShipPositions(p1Ships));
+		SmallGrid small = new SmallGrid(chooseShipPositions(p2Ships));
 		small.setLocation(grid.getWidth()+10, grid.getY());
 		
 		//panel.setLayout(null);
@@ -100,7 +100,7 @@ public class GameLogic {
 		return c;
 	}
 	
-	private Object[][] chooseShipPositions(Ship[] ships, int a) {
+	private Object[][] chooseShipPositions(Ship[] ships) {
 		GridCreator creator = new GridCreator(ships, boardSize, frame);
 		creator.setup();
 		

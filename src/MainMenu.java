@@ -6,15 +6,23 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
-public class MainMenu{
+public class MainMenu extends JFrame{
 	
 	private JTextField usr1, usr2, pswd1, pswd2;
 	private JLabel user1, user2,pass1,pass2;
-	private JFrame window;
+	private JFrame window, scorewindow;
 	private ImageIcon backgroundImageIcon;
 	private JLabel bkgImageContainer;
+	private JTable table;
+	private DefaultTableModel dm;
+	private Object[][] data = {{"","","","","","","",""}};
+	private String[] columnNames = {"Username", "High Score", "Average"};
+	private JScrollPane scroll;
 //	private JButton gridSizeBtn;
 	private JButton startGame;
 	private JButton scores;
@@ -29,7 +37,12 @@ public class MainMenu{
 		window = theWindow;
 		backgroundImageIcon = new ImageIcon("Title.png");
 		bkgImageContainer = new JLabel(backgroundImageIcon);
+		window.setLocation(280, bkgImageContainer.getHeight() + 150);
 		isImageVisible = true;
+	}
+	
+	public void ScoreWindow(JFrame scoreWindow) {
+		scorewindow = scoreWindow;
 	}
 	
 //	public boolean canShipsFitOnBoard(){
@@ -115,6 +128,25 @@ public class MainMenu{
 		scores.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				
+				//super("Player Scores");
+
+				setSize(600,400);
+				setLocation(430, bkgImageContainer.getHeight() - 50);
+				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				setLayout(null);
+				
+				table = new JTable();
+				dm = new DefaultTableModel(data,columnNames);
+				table.setModel(dm);
+				scroll = new JScrollPane(table); 
+				scroll.setSize(500, 270); 
+				scroll.setLocation(50, 50); 
+				add(scroll);
+				dm.fireTableDataChanged();
+				setVisible(true);
+				
+				
 //				window.getContentPane().remove(startGame);
 //				window.getContentPane().remove(scores);
 //				window.getContentPane().remove(bkgImageContainer);
@@ -160,15 +192,7 @@ public class MainMenu{
 				window.getContentPane().remove(pswd1);
 				window.getContentPane().remove(pass2);
 				window.getContentPane().remove(pswd2);
-//				window.getContentPane().remove(gridSizeBtn);
-//				window.getContentPane().remove(battleshipSize);
-//				window.getContentPane().remove(cruiserSize);
-//				window.getContentPane().remove(destroyerSize);
-//				window.getContentPane().remove(submarineSize);
-//				window.getContentPane().remove(battleshipCount);
-//				window.getContentPane().remove(cruiserCount);
-//				window.getContentPane().remove(destroyerCount);
-//				window.getContentPane().remove(submarineCount);
+				window.getContentPane().remove(scores);
 				window.getContentPane().revalidate();
 				window.getContentPane().repaint();
 				window.getContentPane().setBackground(new Color(30,55,65));
