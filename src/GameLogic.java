@@ -142,7 +142,7 @@ public class GameLogic {
 		});
 	}
 	
-	private void gameLoop(Ship[] p1Ships, Ship[] p2Ships, Grid grid, SmallGrid small)
+	private void gameLoop(Ship[] p1Ships, Ship[] p2Ships, Grid grid, SmallGrid small) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
 		betweenTurns(grid, small);
 		
@@ -182,7 +182,14 @@ public class GameLogic {
 			small.repaint();
 
 			if (p1AllShipsDead || p2AllShipsDead) {
+				//if(p1AllShipsDead)
+				//	BattleDataBase.updateW(1, 2, "usr2");
+				
+				//else if(p2AllShipsDead)
+					//BattleDataBase.updateW(1, 2, "usr1");
+				
 				gameRunning = false;
+				
 				for (int i = 0; i < grid.getArray().length; i++) 
 				{
 					for (int j = 0; j < grid.getArray()[i].length; j++) 
@@ -198,6 +205,12 @@ public class GameLogic {
 				//grid.setVisible(true); 
 				GameOverScreen gameOver = new GameOverScreen(frame, !p1AllShipsDead);
 				gameOver.loadEndScreen();
+				
+				if(p1AllShipsDead)
+					BattleDataBase.updateW(1, 2, "usr2");
+				
+				else if(p2AllShipsDead)
+					BattleDataBase.updateW(1, 2, "usr1");
 			}
 		}
 		

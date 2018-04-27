@@ -15,7 +15,7 @@ public class BattleDataBase {
 		Connection connection = DriverManager.getConnection("jdbc:mysql://35.226.99.168:3306/battleship", "root", "1234qwer");
 		Statement statement = connection.createStatement();
 		
-		String update = "select * from BSScores ORDER BY KD DESC";
+		String update = "select * from BSScores ORDER BY wins DESC";
 		ResultSet rs = statement.executeQuery(update);
 		
 		Object[][] data = new Object[100][8];
@@ -25,7 +25,7 @@ public class BattleDataBase {
 			data[count][0] = rs.getString(1);
 			data[count][1] = rs.getString(3);
 			data[count][2] = rs.getString(4);
-			data[count][3] = rs.getString(5);
+			//data[count][3] = rs.getString(5);
 			++count;
 		}
 		connection.close();
@@ -67,9 +67,116 @@ public class BattleDataBase {
 //		connection.close();
 //	}
 	
-	public static void updateW() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+	public static void updateW(int a, int b, String user) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
+		Connection connection = DriverManager.getConnection("jdbc:mysql://35.226.99.168:3306/battleship", "root", "1234qwer");
+		Statement statement = connection.createStatement();
+		ResultSet rs = statement.executeQuery("select * from BSScores");
+		ResultSet bs = statement.executeQuery("select * from BSScores");
 		
+		String str = "UPDATE BSScores SET wins =";
+		String str2 = "UPDATE BSScores SET loses =";
+		boolean player1won = false;
+		boolean player2won = false;
+//		String str3 = "UPDATE BSScores SET KD =";
+//		String str4 = "UPDATE BSScores SET KD =";
+		
+		while(rs.next())
+		{
+			// This updates if user1 wins
+			if(a == (rs.getInt("LoggedIN")) && user.equals("usr1"))
+			{
+				int wins = rs.getInt("wins");
+				wins += 1;
+				str += " '" + wins + "' WHERE LoggedIN = '" + a + "'";
+				
+				player1won = true;
+				
+				while(bs.next())
+				{
+					if(player1won == true && bs.getInt("LoggedIn") == b)
+					{
+						int loses =  bs.getInt("loses");
+						loses += 1;
+						str2 += " '" + loses + "' WHERE LoggedIN = '" + b + "'";
+						break;
+					}
+				}
+				break;
+				
+//				int loses =  rs.getInt("loses");
+//				loses += 1;
+//				str2 += " '" + loses + "' WHERE LoggedIN = '" + b + "'";
+				
+//				float avg =  rs.getFloat("KD");
+//				if(rs.getInt("loses") == 0)
+//					avg = wins / 1;
+//				else if(rs.getInt("loses") > 0)
+//					avg = wins / loses;
+//				str3 += " '" + avg + "' WHERE LoggedIN = '" + a + "'";
+				
+//				ResultSet s = statement.executeQuery("select * from BSScores where LoggedIn = '" + b + "'");
+//				float avg2 =  s.getFloat("KD");
+//				avg2 = wins / loses;
+//				str4 += " '" + avg2 + "' WHERE LoggedIN = '" + b + "'";
+			}
+		
+
+			
+			// This updates if user2 wins
+			if(b == (rs.getInt("LoggedIN")) && user.equals("user2"))
+			{
+				int wins = rs.getInt("wins");
+				wins += 1;
+				str += " '" + wins + "' WHERE LoggedIN = '" + b + "'";
+				
+				player2won = true;
+				
+				while(bs.next())
+				{
+					if(player2won == true && bs.getInt("LoggedIn") == a)
+					{
+						int loses =  bs.getInt("loses");
+						loses += 1;
+						str2 += " '" + loses + "' WHERE LoggedIN = '" + a + "'";
+						break;
+					}
+				}
+				break;
+				
+//				int loses =  rs.getInt("loses");
+//				loses += 1;
+//				str2 += " '" + loses + "' WHERE LoggedIN = '" + a + "'";
+				
+//				float avg =  rs.getFloat("KD");
+				
+//				if(rs.getInt("loses") == 0)
+//					avg = wins / 1;
+//				else if(rs.getInt("loses") > 0)
+//					avg = wins / loses;
+//
+//				str3 += " '" + avg + "' WHERE LoggedIN = '" + b + "'";
+				
+//				ResultSet s = statement.executeQuery("select * from BSScores where LoggedIn = '" + a + "'");
+//				float avg2 =  s.getFloat("KD");
+//				avg2 = wins / loses;
+//				str4 += " '" + avg2 + "' WHERE LoggedIN = '" + a + "'";
+			}
+		}
+		
+		// Update Wins and Loses
+		statement.executeUpdate(str);
+		statement.executeUpdate(str2);
+		//statement.executeUpdate(str3);
+		//statement.executeUpdate(str4);
+		
+		// Update logged in.
+		str = "UPDATE BSScores SET LoggedIN = '0' WHERE LoggedIN = '" + a + "'";
+		statement.executeUpdate(str);
+		
+		str = "UPDATE BSScores SET LoggedIN = '0' WHERE LoggedIN = '" + b + "'";
+		statement.executeUpdate(str);
 	}
 	
 	public static boolean logIn(String ID, String Pass, int a) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
@@ -118,7 +225,7 @@ public class BattleDataBase {
 		Connection connection = DriverManager.getConnection("jdbc:mysql://35.226.99.168:3306/battleship", "root", "1234qwer");
 		Statement statement = connection.createStatement();
 		
-		String str = "INSERT INTO BSScores (userID, UserPW, wins, loses, KD, LoggedIN)" + "VALUES('" + ID + "','" + Pass + "','0','0','0','0')";
+		String str = "INSERT INTO BSScores (userID, UserPW, wins, loses, KD, LoggedIN)" + "VALUES('" + ID + "','" + Pass + "','0','0','0')";
 		statement.executeUpdate(str);
 		connection.close();
 	}

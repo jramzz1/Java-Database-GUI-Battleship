@@ -33,7 +33,7 @@ public class MainMenu extends JFrame{
 	private DefaultTableModel dm;
 	private Object[][] data = {{"","",""}};
 	private JTextField tf1, tf2, tf3, tf4, tf5;
-	private String[] columnNames = {"Username", "Wins", "Loses", "Average"};
+	private String[] columnNames = {"Username", "Wins", "Loses"};
 	private JScrollPane scroll;
 	private JButton scores;
 	
