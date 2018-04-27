@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -22,7 +24,8 @@ public class GameLogic {
 	private JFrame frame;
 	private boolean gameRunning;
 	
-	public void setUpWindow() {
+	public void setUpWindow() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException 
+	{
 		frame = new JFrame();
 		
 		frame.getContentPane().setLayout(null);
@@ -35,18 +38,19 @@ public class GameLogic {
 		startGame();
 	}
 	
-	public void startGame() {
+	public void startGame() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException 
+	{
 		gameRunning = true;
 		
 		MainMenu startMenu = new MainMenu(frame);
 		startMenu.loadTitleScreen();
 		while(startMenu.isImageVisible()){}
-		
+//HERE		
 		Ship[] p1Ships = initializeShipCreation(true);
 		Ship[] p2Ships = initializeShipCreation(false);
 		
-		Grid grid = new Grid(chooseShipPositions(p1Ships));
-		SmallGrid small = new SmallGrid(chooseShipPositions(p2Ships));
+		Grid grid = new Grid(chooseShipPositions(p1Ships,0));
+		SmallGrid small = new SmallGrid(chooseShipPositions(p2Ships,1));
 		small.setLocation(grid.getWidth()+10, grid.getY());
 		
 		//panel.setLayout(null);
@@ -64,7 +68,8 @@ public class GameLogic {
 		gameLoop(p1Ships, p2Ships, grid, small);
 	}
 	
-	private Ship[] initializeShipCreation(boolean isPlayerOne) {
+	private Ship[] initializeShipCreation(boolean isPlayerOne) 
+	{
 		Ship[] battleships = createShips(battleshipSize, battleshipCount, isPlayerOne);
 		Ship[] cruisers = createShips(cruiserSize, cruiserCount, isPlayerOne);
 		Ship[] destroyers = createShips(destroyerSize, destroyerCount, isPlayerOne);
@@ -77,7 +82,8 @@ public class GameLogic {
 		return ships;
 	}
 
-	private Ship[] createShips(int shipSize, int numOfShips, boolean isPlayerOne) {
+	private Ship[] createShips(int shipSize, int numOfShips, boolean isPlayerOne) 
+	{
 		Ship[] listOfShips = new Ship[numOfShips];
 		for (int i = 0; i < numOfShips; i++) {
 			ShipPiece[] shipArray = new ShipPiece[shipSize];
@@ -91,7 +97,8 @@ public class GameLogic {
 		return listOfShips;
 	}
 
-	private Ship[] concatShipArray(Ship[] a, Ship[] b) {
+	private Ship[] concatShipArray(Ship[] a, Ship[] b) 
+	{
 		int aLen = a.length;
 		int bLen = b.length;
 		Ship[] c = new Ship[aLen + bLen];
@@ -100,7 +107,8 @@ public class GameLogic {
 		return c;
 	}
 	
-	private Object[][] chooseShipPositions(Ship[] ships) {
+	private Object[][] chooseShipPositions(Ship[] ships, int a) 
+	{
 		GridCreator creator = new GridCreator(ships, boardSize, frame);
 		creator.setup();
 		
@@ -115,7 +123,8 @@ public class GameLogic {
 		return creator.getGridArray();
 	}
 	
-	private void betweenTurns(Grid grid, SmallGrid small){
+	private void betweenTurns(Grid grid, SmallGrid small)
+	{
 		frame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -133,7 +142,8 @@ public class GameLogic {
 		});
 	}
 	
-	private void gameLoop(Ship[] p1Ships, Ship[] p2Ships, Grid grid, SmallGrid small){
+	private void gameLoop(Ship[] p1Ships, Ship[] p2Ships, Grid grid, SmallGrid small)
+	{
 		betweenTurns(grid, small);
 		
 		while (gameRunning) {
@@ -144,7 +154,9 @@ public class GameLogic {
 				if (p1Ships[i].checkIfDead()) {
 					for (int j = 0; j < p1Ships[i].getShipPieces().length; j++)
 						p1Ships[i].getShipPieces()[j].setShipImage("dead.png");
-				} else {
+				} 
+				else 
+				{
 					p1AllShipsDead = false;
 				}
 			}
@@ -158,7 +170,9 @@ public class GameLogic {
 				if (p2Ships[i].checkIfDead()) {
 					for (int j = 0; j < p2Ships[i].getShipPieces().length; j++)
 						p2Ships[i].getShipPieces()[j].setShipImage("dead.png");
-				} else {
+				}
+				else 
+				{
 					p2AllShipsDead = false;
 				}
 			}
@@ -169,9 +183,12 @@ public class GameLogic {
 
 			if (p1AllShipsDead || p2AllShipsDead) {
 				gameRunning = false;
-				for (int i = 0; i < grid.getArray().length; i++) {
-					for (int j = 0; j < grid.getArray()[i].length; j++) {
-						if ((grid.getArray()[i][j].equals((Object) 1))) {
+				for (int i = 0; i < grid.getArray().length; i++) 
+				{
+					for (int j = 0; j < grid.getArray()[i].length; j++) 
+					{
+						if ((grid.getArray()[i][j].equals((Object) 1))) 
+						{
 							grid.getArray()[i][j] = (Object) 0;
 						}
 					}
