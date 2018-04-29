@@ -1,6 +1,4 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -30,6 +28,7 @@ public class GridCreator extends JPanel {
 	private JPanel[] panelArray;
 	private JButton endSetup, randomizeShipsBtn;
 	private JFrame window;
+	private JLabel user1, user2;
 	private volatile boolean setupOver = false;
 	public static final int X_ORIGIN = 54;
 	public static final int Y_ORIGIN = 56;
@@ -73,7 +72,7 @@ public class GridCreator extends JPanel {
 	/*
 	 * Does all the work to setup the grid.
 	 */
-	public void setup() {
+	public void setup(int a) {
 		int largestShipSize = 0;
 		for (int i = 0; i < shipArray.length; i++){
 			int temp = shipArray[i].getShipPieces().length;
@@ -101,6 +100,27 @@ public class GridCreator extends JPanel {
 		gridLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		gridLabel.setVerticalAlignment(SwingConstants.TOP);
 		add(gridLabel);
+		
+		if(a == 0)
+		{
+			user1 = new JLabel("Player 1");
+			user1.setSize(100,100);
+			user1.setFont(new Font("Helvetica", Font.PLAIN, 25));
+			//user1.setSize(300,300);
+			user1.setLocation(740,520);
+			user1.setForeground(Color.white);
+			add(user1);
+		}
+		
+		if(a == 1)
+		{
+			user2 = new JLabel("Player 2");
+			user2.setSize(100,100);
+			user2.setFont(new Font("Helvetica", Font.PLAIN, 25));
+			user2.setLocation(740,520);
+			user2.setForeground(Color.white);
+			add(user2);
+		}
 
 		int buttonXPos = gridLabel.getWidth();
 

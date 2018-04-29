@@ -258,6 +258,7 @@ public class MainMenu extends JFrame{
 				else if(player1B == false && player2B == false)
 				{
 					Component frame = null;
+
 					JOptionPane.showMessageDialog(frame,
 						    "PLayer 1 & 2 not found! Create?",
 						    "Inane error",

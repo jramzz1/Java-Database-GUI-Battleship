@@ -13,8 +13,8 @@ public class BetweenTurnsScreen implements MouseListener {
 	private ImageIcon backgroundImageIcon;
 	private JLabel bkgImageContainer;
 	private volatile boolean isImageVisible;
-	private Grid grid;
-	private SmallGrid small;
+	private Grid grid, g;
+	private SmallGrid small,s;
 	
 	public BetweenTurnsScreen(JPanel theWindow, Grid grid, SmallGrid small){
 		window = theWindow;
@@ -27,6 +27,7 @@ public class BetweenTurnsScreen implements MouseListener {
 		bkgImageContainer.setSize(window.getWidth(), window.getHeight());
 		bkgImageContainer.setLocation(0, 0); 
 		isImageVisible = true;
+		
 		this.grid = grid;
 		this.small = small;
 	}

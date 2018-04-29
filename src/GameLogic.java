@@ -1,11 +1,13 @@
 import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GameLogic {
@@ -23,6 +25,9 @@ public class GameLogic {
 	public static int submarineCount = 4;
 	private JFrame frame;
 	private boolean gameRunning;
+	private boolean oneturn = true;
+//	private boolean twoturn = false;
+	JLabel user1, user2;
 	
 	public void setUpWindow() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException 
 	{
@@ -49,8 +54,8 @@ public class GameLogic {
 		Ship[] p1Ships = initializeShipCreation(true);
 		Ship[] p2Ships = initializeShipCreation(false);
 		
-		Grid grid = new Grid(chooseShipPositions(p1Ships,0));
-		SmallGrid small = new SmallGrid(chooseShipPositions(p2Ships,1));
+		SmallGrid small = new SmallGrid(chooseShipPositions(p1Ships,0));
+		Grid grid = new Grid(chooseShipPositions(p2Ships,1));
 		small.setLocation(grid.getWidth()+10, grid.getY());
 		
 		//panel.setLayout(null);
@@ -110,7 +115,7 @@ public class GameLogic {
 	private Object[][] chooseShipPositions(Ship[] ships, int a) 
 	{
 		GridCreator creator = new GridCreator(ships, boardSize, frame);
-		creator.setup();
+		creator.setup(a);
 		
 		frame.getContentPane().add(creator);
 		frame.getContentPane().repaint();
@@ -131,23 +136,81 @@ public class GameLogic {
 				BetweenTurnsScreen betweenTurns = new BetweenTurnsScreen((JPanel) frame.getContentPane(), grid, small);
 				final Object[][] grid1Temp = grid.getArray();
 				final Object[][] grid2Temp = small.getArray();
+				
 				if (!grid.isTurn() && gameRunning){
 					grid.setVisible(false);
 					small.setVisible(false);
 					grid.setArray(grid2Temp);
 					small.setArray(grid1Temp);
 					betweenTurns.loadTurnScreen();
+					
+					if(oneturn)
+					{
+						oneturn = false;
+						return;
+					}
+
+					if(!oneturn)
+					{
+						oneturn = true;
+						return;
+					}
 				}
 			}
 		});
 	}
 	
 	private void gameLoop(Ship[] p1Ships, Ship[] p2Ships, Grid grid, SmallGrid small) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
-	{
+	{	
+		user1 = new JLabel("Player 1");
+		user1.setSize(100,100);
+		user1.setFont(new Font("Helvetica", Font.PLAIN, 25));
+		user1.setLocation(740,520);
+		user1.setForeground(Color.white);
+		frame.add(user1);
+		
+		user2 = new JLabel("Player 2");
+		user2.setSize(100,100);
+		user2.setFont(new Font("Helvetica", Font.PLAIN, 25));
+		user2.setLocation(740,520);
+		user2.setForeground(Color.white);
+		frame.add(user2);
+		
+		user1.setVisible(true);
+		user2.setVisible(false);
+		
 		betweenTurns(grid, small);
 		
 		while (gameRunning) {
+			
+			if(!oneturn)
+			{
+				user2.setVisible(true);
+				user1.setVisible(false);
+			}
+			
+			if(oneturn)
+			{
+				user2.setVisible(false);
+				user1.setVisible(true);
+			}
+			
+			boolean p2AllShipsDead = true;
 
+			for (int i = 0; i < p2Ships.length; i++) {
+				if (p2Ships[i].checkIfDead()) {
+					for (int j = 0; j < p2Ships[i].getShipPieces().length; j++)
+						p2Ships[i].getShipPieces()[j].setShipImage("dead.png");
+				}
+				else 
+				{
+					p2AllShipsDead = false;
+				}
+			}
+
+			grid.repaint();
+			small.repaint();
+			
 			boolean p1AllShipsDead = true;
 
 			for (int i = 0; i < p1Ships.length; i++) {
@@ -161,33 +224,10 @@ public class GameLogic {
 				}
 			}
 
-			boolean p2AllShipsDead = true;
-
-			grid.repaint();
-			small.repaint();
-
-			for (int i = 0; i < p2Ships.length; i++) {
-				if (p2Ships[i].checkIfDead()) {
-					for (int j = 0; j < p2Ships[i].getShipPieces().length; j++)
-						p2Ships[i].getShipPieces()[j].setShipImage("dead.png");
-				}
-				else 
-				{
-					p2AllShipsDead = false;
-				}
-			}
-
-			// while(turnButton.isVisible()){}
 			grid.repaint();
 			small.repaint();
 
 			if (p1AllShipsDead || p2AllShipsDead) {
-				//if(p1AllShipsDead)
-				//	BattleDataBase.updateW(1, 2, "usr2");
-				
-				//else if(p2AllShipsDead)
-					//BattleDataBase.updateW(1, 2, "usr1");
-				
 				gameRunning = false;
 				
 				for (int i = 0; i < grid.getArray().length; i++) 

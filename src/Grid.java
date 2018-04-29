@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -9,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Grid extends JPanel implements MouseListener {
@@ -43,6 +45,7 @@ public class Grid extends JPanel implements MouseListener {
 		array = arr;
 		isTurn = true;
 		state = false;
+		
 		// makes the background white and sets the size
 		setBackground(new Color(30,55,65));
 		setPreferredSize(new Dimension((X_ORIGIN + arr.length + 1 + ((TILE_SIZE+BORDER_SIZE)*array.length)), 
